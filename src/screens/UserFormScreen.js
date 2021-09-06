@@ -38,7 +38,7 @@ const UserFormScreen = ({ route, navigation }) => {
 
   const handleFormSubmit = () => {
     if (name == "") {
-      alert("name is required");
+      alert("User name is required");
       return;
     }
 

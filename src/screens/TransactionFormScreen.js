@@ -44,7 +44,7 @@ const TransactionFormScreen = ({ route, navigation }) => {
 
   const handleFormSubmit = () => {
     if (amount == "") {
-      alert("name is required");
+      alert("Amount is required");
       return;
     }
 
@@ -102,6 +102,7 @@ const TransactionFormScreen = ({ route, navigation }) => {
       <SafeAreaView style={styles.safeContainerStyle}>
         <Title style={styles.titleText}>{formTitle} Transaction</Title>
         <FormInput
+          keyboardType="numeric"
           labelName="Amount"
           value={amount}
           autoCapitalize="none"
