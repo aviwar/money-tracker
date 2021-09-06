@@ -1,60 +1,88 @@
-import "react-native-gesture-handler";
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
+import React from "react";
 import {
-  DarkTheme,
-  DefaultTheme,
+  NavigationContainer,
+  DarkTheme as NavigationDarkTheme,
+  DefaultTheme as NavigationDefaultTheme,
+} from "@react-navigation/native";
+import {
+  DarkTheme as PaperDarkTheme,
+  DefaultTheme as PaperDefaultTheme,
   Provider as PaperProvider,
-  ThemeProvider,
 } from "react-native-paper";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import Header from "./Header";
-import BottomMenu from "./BottomMenu";
-import UserFormScreen from "../screens/UserFormScreen";
-import TransactionScreen from "../screens/TransactionScreen";
-import TransactionFormScreen from "../screens/TransactionFormScreen";
+import { PreferencesContext } from "./PreferencesContext";
+import Loader from "../components/common/Loader";
+
+const Header = React.lazy(() => import("./Header"));
+const BottomMenu = React.lazy(() => import("./BottomMenu"));
+const UserFormScreen = React.lazy(() => import("../screens/UserFormScreen"));
+const TransactionScreen = React.lazy(() =>
+  import("../screens/TransactionScreen")
+);
+const TransactionFormScreen = React.lazy(() =>
+  import("../screens/TransactionFormScreen")
+);
+
+const CombinedDefaultTheme = {
+  ...PaperDefaultTheme,
+  ...NavigationDefaultTheme,
+  colors: {
+    ...PaperDefaultTheme.colors,
+    ...NavigationDefaultTheme.colors,
+  },
+};
+const CombinedDarkTheme = {
+  ...PaperDarkTheme,
+  ...NavigationDarkTheme,
+  colors: {
+    ...PaperDarkTheme.colors,
+    ...NavigationDarkTheme.colors,
+  },
+};
 
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
-  const [nightMode, setNightmode] = useState(false);
+  const [isThemeDark, setIsThemeDark] = React.useState(false);
+
+  let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+
+  const toggleTheme = React.useCallback(() => {
+    return setIsThemeDark(!isThemeDark);
+  }, [isThemeDark]);
+
+  const preferences = React.useMemo(
+    () => ({
+      toggleTheme,
+      isThemeDark,
+    }),
+    [toggleTheme, isThemeDark]
+  );
 
   return (
-    <PaperProvider theme={nightMode ? DarkTheme : DefaultTheme}>
-      <ThemeProvider theme={nightMode ? DarkTheme : DefaultTheme}>
-        <StatusBar
-          backgroundColor={
-            nightMode ? DarkTheme.colors.surface : DefaultTheme.colors.primary
-          }
-          barStyle={"light-content"}
-        />
-
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Home"
-            screenOptions={{
-              header: ({ navigation }) => (
-                <Header
-                  navigation={navigation}
-                  setNightmode={setNightmode}
-                  nightMode={nightMode}
-                />
-              ),
-            }}
-          >
-            <Stack.Screen name="BottomMenu" component={BottomMenu} />
-            <Stack.Screen name="UserForm" component={UserFormScreen} />
-            <Stack.Screen name="Transactions" component={TransactionScreen} />
-            <Stack.Screen
-              name="TransactionForm"
-              component={TransactionFormScreen}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ThemeProvider>
-    </PaperProvider>
+    <React.Suspense fallback={<Loader />}>
+      <PreferencesContext.Provider value={preferences}>
+        <PaperProvider theme={theme}>
+          <NavigationContainer theme={theme}>
+            <Stack.Navigator
+              initialRouteName="Home"
+              screenOptions={{
+                header: (props) => <Header {...props} />,
+              }}
+            >
+              <Stack.Screen name="BottomMenu" component={BottomMenu} />
+              <Stack.Screen name="UserForm" component={UserFormScreen} />
+              <Stack.Screen name="Transactions" component={TransactionScreen} />
+              <Stack.Screen
+                name="TransactionForm"
+                component={TransactionFormScreen}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PaperProvider>
+      </PreferencesContext.Provider>
+    </React.Suspense>
   );
 };
 

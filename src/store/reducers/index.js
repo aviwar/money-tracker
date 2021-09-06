@@ -69,7 +69,7 @@ const rootReducer = (state = INITIAL_STATE, action) => {
     case UPDATE_TRANSACTION:
       transactionId = action.payload.id;
       let transactions = state.transactions.map((transaction) => {
-        if (transaction.id === id) {
+        if (transaction.id === transactionId) {
           return action.payload.transaction;
         } else {
           return transaction;

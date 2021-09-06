@@ -24,10 +24,10 @@ export const addUser = (user) => {
   };
 };
 
-export const updateUser = (userId) => {
+export const updateUser = (user, userId) => {
   return {
     type: UPDATE_USER,
-    payload: { userId },
+    payload: { user, userId },
   };
 };
 

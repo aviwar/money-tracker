@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
 import { Avatar, Card, Surface, Text, FAB } from "react-native-paper";
 
@@ -17,17 +17,15 @@ const SummaryCard = (props) => {
   );
 };
 
-const HomeScreen = ({ navigation, previous }) => {
-  const { users, transactions } = useSelector((state) => state);
+const HomeScreen = () => {
+  const { users } = useSelector((state) => state);
 
   const [getAmount, setGetAmount] = useState("0");
   const [giveAmount, setGiveAmount] = useState("0");
 
   useEffect(() => {
-    // if (users.length > 0) {
     calculateGetAmount();
     calculateGiveAmount();
-    // }
   }, [users]);
 
   const calculateBalanceSum = (filteredUsers) => {

@@ -33,7 +33,7 @@ const TransactionFormScreen = ({ route, navigation }) => {
   const [type, setType] = useState("gave");
   const [transaction, setTransaction] = useState({});
 
-  const formTitle = id !== "" ? "Update" : "Add";
+  const formTitle = id ? "Update" : "Add";
 
   const dispatch = useDispatch();
   const addToTransactionList = (transaction) =>
@@ -71,6 +71,7 @@ const TransactionFormScreen = ({ route, navigation }) => {
     }
 
     updateUserBalanceList(userId);
+    navigation.goBack();
   };
 
   const resetForm = () => {

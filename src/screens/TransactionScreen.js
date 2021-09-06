@@ -7,6 +7,7 @@ import { DataTable } from "react-native-paper";
 
 import TransactionItem from "../components/TransactionItem";
 import DialogComponent from "../components/common/DialogComponent";
+import FabComponent from "../components/common/FabComponent";
 
 import {
   deleteTransaction,
@@ -59,8 +60,14 @@ const TransactionScreen = ({ route, navigation }) => {
     getTransactions(userId);
   }, [transactions]);
 
+  const navigateToTransactionForm = () => {
+    navigation.push("TransactionForm", {
+      userId: userId,
+    });
+  };
+
   const handleUserEditClick = () => {
-    navigation.navigate("UserForm", {
+    navigation.push("UserForm", {
       id: userId,
     });
   };
@@ -70,7 +77,7 @@ const TransactionScreen = ({ route, navigation }) => {
   };
 
   const handleTransactionEditClick = (transactionId) => {
-    navigation.navigate("TransactionForm", {
+    navigation.push("TransactionForm", {
       id: transactionId,
       userId: userId,
     });
@@ -89,8 +96,8 @@ const TransactionScreen = ({ route, navigation }) => {
     setDialogVisible(!dialogVisible);
 
     if (transactionId) {
-      deleteTransaction(transactionId);
-      updateUserBalance(userId);
+      dispatch(deleteTransaction(transactionId));
+      dispatch(updateUserBalance(userId));
       setTransactionId("");
     } else {
       dispatch(deleteUserTransactions(userId));
@@ -160,17 +167,9 @@ const TransactionScreen = ({ route, navigation }) => {
           </DataTable>
         </ScrollView>
 
-        <Portal>
-          <FAB
-            icon="plus"
-            style={styles.fab}
-            onPress={() =>
-              navigation.navigate("TransactionForm", {
-                userId: userId,
-              })
-            }
-          />
-        </Portal>
+        <Portal.Host>
+          <FabComponent icon="plus" onPress={navigateToTransactionForm} />
+        </Portal.Host>
       </SafeAreaView>
     </Surface>
   );
@@ -180,11 +179,6 @@ const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     padding: 12,
-  },
-  fab: {
-    position: "absolute",
-    bottom: 25,
-    right: 16,
   },
   safeContainerStyle: {
     flex: 1,

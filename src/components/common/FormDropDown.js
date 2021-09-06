@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Dimensions, Text } from "react-native";
-import { Button } from "react-native-paper";
+import { StyleSheet, Dimensions } from "react-native";
 import DropDown from "react-native-paper-dropdown";
 
 const { width, height } = Dimensions.get("screen");

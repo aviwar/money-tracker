@@ -1,17 +1,24 @@
 import React from "react";
-import { Appbar } from "react-native-paper";
+import { useTheme, Appbar } from "react-native-paper";
+import { PreferencesContext } from "./PreferencesContext";
 
-const Header = ({ navigation, nightMode, setNightmode }) => {
-  const previous = navigation.canGoBack();
+const Header = ({ navigation, back }) => {
+  const theme = useTheme();
+  const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
   return (
-    <Appbar.Header>
-      {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+    <Appbar.Header
+      theme={{
+        colors: {
+          primary: theme?.colors.surface,
+        },
+      }}
+    >
+      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       <Appbar.Content title="Money Tracker" />
       <Appbar.Action
-        icon={nightMode ? "brightness-7" : "brightness-3"}
-        // icon="brightness-3"
-        onPress={() => setNightmode(!nightMode)}
+        icon={isThemeDark ? "brightness-7" : "brightness-3"}
+        onPress={() => toggleTheme()}
       />
     </Appbar.Header>
   );

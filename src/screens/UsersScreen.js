@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
-import { FAB, Surface, Text } from "react-native-paper";
+import { Surface, Text } from "react-native-paper";
 
+import FabComponent from "../components/common/FabComponent";
 import UserItem from "../components/UserItem";
 import { getUsers } from "../store/actions";
 
@@ -17,7 +18,7 @@ const UsersScreen = ({ navigation }) => {
   }, []);
 
   const handleUserOnPress = (userId) => {
-    navigation.navigate("Transactions", {
+    navigation.push("Transactions", {
       userId: userId,
     });
   };
@@ -39,13 +40,8 @@ const UsersScreen = ({ navigation }) => {
           )}
         </ScrollView>
 
-        <FAB
+        <FabComponent
           icon="plus"
-          style={{
-            position: "absolute",
-            bottom: 25,
-            right: 16,
-          }}
           onPress={() => navigation.navigate("UserForm")}
         />
       </SafeAreaView>

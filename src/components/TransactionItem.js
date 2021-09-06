@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { DataTable, IconButton } from "react-native-paper";
 
 import { FormatDate } from "./common/Utils";

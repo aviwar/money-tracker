@@ -44,7 +44,6 @@ const UserFormScreen = ({ route, navigation }) => {
 
     if (userId !== "") {
       let updatedUser = { ...user, name };
-
       updateUserList(updatedUser, userId);
 
       alert("User Updated!");
@@ -60,6 +59,8 @@ const UserFormScreen = ({ route, navigation }) => {
 
       alert("User Added!");
     }
+
+    navigation.goBack();
   };
 
   return (
