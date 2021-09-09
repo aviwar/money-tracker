@@ -6,7 +6,7 @@ import { Surface, Title } from "react-native-paper";
 import FormInput from "../components/common/FormInput";
 import FormButton from "../components/common/FormButton";
 import FormDropDown from "../components/common/FormDropDown";
-import { Uuid } from "../components/common/Utils";
+import { Uuid } from "../utils";
 import {
   addTransaction,
   updateTransaction,
@@ -24,7 +24,7 @@ const typeList = [
   },
 ];
 
-const TransactionFormScreen = ({ route, navigation }) => {
+const TransactionForm = ({ route, navigation }) => {
   const { id, userId } = route.params;
 
   const transactions = useSelector((state) => state.transactions);
@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TransactionFormScreen;
+export default TransactionForm;

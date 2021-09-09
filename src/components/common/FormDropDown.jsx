@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import { StyleSheet, Dimensions } from "react-native";
+import React from "react";
 import DropDown from "react-native-paper-dropdown";
 
-const { width, height } = Dimensions.get("screen");
-
 const FormDropDown = ({ labelName, dropdownList, ...rest }) => {
-  const [showDropDown, setShowDropDown] = useState(false);
+  const [showDropDown, setShowDropDown] = React.useState(false);
 
   return (
     <DropDown
@@ -19,14 +16,5 @@ const FormDropDown = ({ labelName, dropdownList, ...rest }) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    marginTop: 10,
-    marginBottom: 10,
-    // width: width / 2,
-    height: height / 15,
-  },
-});
 
 export default FormDropDown;

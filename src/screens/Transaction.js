@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { SafeAreaView, StyleSheet, ScrollView, View } from "react-native";
-import { FAB, Portal, Surface, Text, Dialog } from "react-native-paper";
-import { Avatar, Card, IconButton } from "react-native-paper";
-import { DataTable } from "react-native-paper";
+import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import {
+  Avatar,
+  DataTable,
+  IconButton,
+  Surface,
+  Text,
+} from "react-native-paper";
 
-import TransactionItem from "../components/TransactionItem";
 import DialogComponent from "../components/common/DialogComponent";
 import FabComponent from "../components/common/FabComponent";
-
+import CardComponent from "../components/common/CardComponent";
+import TransactionItem from "../components/TransactionItem";
 import {
   deleteTransaction,
   deleteUserTransactions,
@@ -16,7 +20,7 @@ import {
   updateUserBalance,
 } from "../store/actions";
 
-const TransactionScreen = ({ route, navigation }) => {
+const Transaction = ({ route, navigation }) => {
   const { userId } = route.params;
   const { users, transactions } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -118,22 +122,20 @@ const TransactionScreen = ({ route, navigation }) => {
     <Surface style={styles.containerStyle}>
       <SafeAreaView style={styles.safeContainerStyle}>
         <ScrollView>
-          <Card style={styles.userHeader} mode="outlined">
-            <Card.Title
-              title={user.name}
-              left={(props) => <Avatar.Icon {...props} icon="account-circle" />}
-              right={userHeaderRightContent}
-            />
-          </Card>
+          <CardComponent
+            style={styles.userHeader}
+            title={user.name}
+            left={(props) => <Avatar.Icon {...props} icon="account-circle" />}
+            right={userHeaderRightContent}
+          />
 
           {userBalance > 0 && (
-            <Card style={styles.transactionList} mode="outlined">
-              <Card.Title
-                title={userBalance}
-                subtitle={userStatus}
-                left={(props) => <Avatar.Icon {...props} icon="currency-inr" />}
-              />
-            </Card>
+            <CardComponent
+              style={styles.transactionList}
+              title={userBalance}
+              subtitle={userStatus}
+              left={(props) => <Avatar.Icon {...props} icon="currency-inr" />}
+            />
           )}
 
           <DialogComponent
@@ -167,9 +169,7 @@ const TransactionScreen = ({ route, navigation }) => {
           </DataTable>
         </ScrollView>
 
-        <Portal.Host>
-          <FabComponent icon="plus" onPress={navigateToTransactionForm} />
-        </Portal.Host>
+        <FabComponent icon="plus" onPress={navigateToTransactionForm} />
       </SafeAreaView>
     </Surface>
   );
@@ -194,4 +194,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TransactionScreen;
+export default Transaction;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import { Surface, Text } from "react-native-paper";
@@ -7,7 +7,7 @@ import FabComponent from "../components/common/FabComponent";
 import UserItem from "../components/UserItem";
 import { getUsers } from "../store/actions";
 
-const UsersScreen = ({ navigation }) => {
+const Users = ({ navigation }) => {
   const users = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UsersScreen;
+export default Users;

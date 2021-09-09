@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SafeAreaView, StyleSheet } from "react-native";
-import { Surface, Text, Title } from "react-native-paper";
+import { Surface, Title } from "react-native-paper";
 
 import FormInput from "../components/common/FormInput";
 import FormButton from "../components/common/FormButton";
-import { Uuid } from "../components/common/Utils";
+import { Uuid } from "../utils";
 import { addUser, updateUser } from "../store/actions";
 
-const UserFormScreen = ({ route, navigation }) => {
+const UserForm = ({ route, navigation }) => {
   const userId = route.params?.id || "";
   const users = useSelector((state) => state.users);
 
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserFormScreen;
+export default UserForm;

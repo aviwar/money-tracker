@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Avatar, Card, Title, Caption } from "react-native-paper";
+import { Avatar, Title, Caption } from "react-native-paper";
+import CardComponent from "./common/CardComponent";
 
 const UserItem = (props) => {
   const { id, name, balance } = props.user;
@@ -19,19 +20,15 @@ const UserItem = (props) => {
   };
 
   return (
-    <Card
+    <CardComponent
       onPress={(props) => {
         handleOnPress(id);
       }}
       style={styles.userCard}
-      mode="outlined"
-    >
-      <Card.Title
-        title={name}
-        left={(props) => <Avatar.Icon {...props} icon="account-circle" />}
-        right={(props) => <RightContent />}
-      />
-    </Card>
+      title={name}
+      left={(props) => <Avatar.Icon {...props} icon="account-circle" />}
+      right={(props) => <RightContent />}
+    />
   );
 };
 

@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
-import { Avatar, Card, Surface, Text, FAB } from "react-native-paper";
+import { Avatar, Surface } from "react-native-paper";
+
+import CardComponent from "../components/common/CardComponent";
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="currency-inr" />;
 
-const SummaryCard = (props) => {
-  return (
-    <Card style={styles.card}>
-      <Card.Title
-        title={props.title}
-        subtitle={props.subtitle}
-        left={LeftContent}
-      />
-    </Card>
-  );
-};
-
-const HomeScreen = () => {
+const Home = () => {
   const { users } = useSelector((state) => state);
 
   const [getAmount, setGetAmount] = useState("0");
@@ -57,8 +47,18 @@ const HomeScreen = () => {
   return (
     <Surface style={styles.surface}>
       <View style={styles.summary}>
-        <SummaryCard title={giveAmount} subtitle="You will give" />
-        <SummaryCard title={getAmount} subtitle="You Will get" />
+        <CardComponent
+          style={styles.card}
+          title={giveAmount}
+          subtitle="You will give"
+          left={LeftContent}
+        />
+        <CardComponent
+          style={styles.card}
+          title={getAmount}
+          subtitle="You Will get"
+          left={LeftContent}
+        />
       </View>
     </Surface>
   );
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;

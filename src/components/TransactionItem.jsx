@@ -1,7 +1,7 @@
 import React from "react";
 import { DataTable, IconButton } from "react-native-paper";
 
-import { FormatDate } from "./common/Utils";
+import { FormatDate } from "../utils";
 
 const TransactionItem = ({
   transaction,
