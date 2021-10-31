@@ -4,9 +4,9 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { PersistGate } from "redux-persist/integration/react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { PreferencesContext } from "./src/navigation/PreferencesContext";
+import { ThemeContext } from "./src/theme/ThemeContext";
 import Loader from "./src/components/common/Loader";
-import { LightTheme, DarkTheme } from "./src/utils/CustomTheme";
+import { LightTheme, DarkTheme } from "./src/theme/CustomTheme";
 
 import { store, persistor } from "./src/store";
 import AppNavigator from "./src/navigation/AppNavigator";
@@ -32,13 +32,13 @@ export default function App() {
     <React.Suspense fallback={<Loader />}>
       <StoreProvider store={store}>
         <PersistGate loading={<Loader />} persistor={persistor}>
-          <PreferencesContext.Provider value={preferences}>
+          <ThemeContext.Provider value={preferences}>
             <PaperProvider theme={theme}>
               <NavigationContainer theme={theme}>
                 <AppNavigator />
               </NavigationContainer>
             </PaperProvider>
-          </PreferencesContext.Provider>
+          </ThemeContext.Provider>
         </PersistGate>
       </StoreProvider>
     </React.Suspense>

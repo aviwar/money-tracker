@@ -1,30 +1,29 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-const Header = React.lazy(() => import("./Header"));
-const BottomTab = React.lazy(() => import("./TabNavigator"));
-const UserFormScreen = React.lazy(() => import("../screens/UserForm"));
-const TransactionScreen = React.lazy(() => import("../screens/Transaction"));
+const TopNavigator = React.lazy(() => import("./TopNavigator"));
+const BottomTabNavigator = React.lazy(() => import("./BottomTabNavigator"));
+const TransactionDetail = React.lazy(() =>
+  import("../screens/TransactionDetail")
+);
+const AddTransaction = React.lazy(() => import("../screens/AddTransaction"));
 const TransactionFormScreen = React.lazy(() =>
-  import("../screens/TransactionForm")
+  import("../screens/TransactionFormScreen")
 );
 
-const Stack = createStackNavigator();
+const { Navigator, Screen } = createStackNavigator();
 
-const AppNavigator = () => {
-  return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        header: (props) => <Header {...props} />,
-      }}
-    >
-      <Stack.Screen name="BottomTab" component={BottomTab} />
-      <Stack.Screen name="UserForm" component={UserFormScreen} />
-      <Stack.Screen name="Transactions" component={TransactionScreen} />
-      <Stack.Screen name="TransactionForm" component={TransactionFormScreen} />
-    </Stack.Navigator>
-  );
-};
+const AppNavigator = () => (
+  <Navigator
+    screenOptions={{
+      header: (props) => <TopNavigator {...props} />,
+    }}
+  >
+    <Screen name="BottomTab" component={BottomTabNavigator} />
+    <Screen name="TransactionDetail" component={TransactionDetail} />
+    <Screen name="AddTransaction" component={AddTransaction} />
+    <Screen name="TransactionForm" component={TransactionFormScreen} />
+  </Navigator>
+);
 
 export default AppNavigator;

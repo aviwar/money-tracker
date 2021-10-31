@@ -1,18 +1,22 @@
 import React from "react";
-import { StyleSheet, Dimensions } from "react-native";
-import { TextInput } from "react-native-paper";
-
-const { width, height } = Dimensions.get("screen");
+import { StyleSheet } from "react-native";
+import { HelperText, TextInput } from "react-native-paper";
 
 const FormInput = ({ labelName, ...rest }) => {
+  const { error } = rest;
+  const errorMessage = error?.message;
+
   return (
-    <TextInput
-      mode={"outlined"}
-      label={labelName}
-      style={styles.input}
-      numberOfLines={1}
-      {...rest}
-    />
+    <>
+      <TextInput
+        mode={"outlined"}
+        label={labelName}
+        style={styles.input}
+        numberOfLines={1}
+        {...rest}
+      />
+      {errorMessage && <HelperText type={"error"}>{errorMessage}</HelperText>}
+    </>
   );
 };
 
@@ -20,8 +24,6 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 10,
     marginBottom: 10,
-    width: width / 1.15,
-    height: height / 15,
   },
 });
 

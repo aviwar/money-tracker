@@ -1,10 +1,11 @@
 import React from "react";
 import { useTheme, Appbar } from "react-native-paper";
-import { PreferencesContext } from "./PreferencesContext";
 
-const Header = ({ navigation, back }) => {
+import { ThemeContext } from "../theme/ThemeContext";
+
+const TopNavigator = ({ navigation, back }) => {
   const theme = useTheme();
-  const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
+  const { toggleTheme, isThemeDark } = React.useContext(ThemeContext);
 
   return (
     <Appbar.Header
@@ -24,4 +25,4 @@ const Header = ({ navigation, back }) => {
   );
 };
 
-export default Header;
+export default TopNavigator;
