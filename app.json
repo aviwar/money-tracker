@@ -2,7 +2,7 @@
   "expo": {
     "name": "Money Tracker",
     "slug": "money-tracker",
-    "version": "1.1.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.aviwar.moneytracker",
-      "buildNumber": "1.1.0"
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +27,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.aviwar.moneytracker",
-      "versionCode": 440010100
+      "versionCode": 440010001
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
