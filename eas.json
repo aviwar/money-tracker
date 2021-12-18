@@ -1,0 +1,20 @@
+{
+  "cli": {
+    "version": ">= 0.40.0"
+  },
+  "build": {
+    "production": {
+      "node": "16.13.0"
+    },
+    "preview": {
+      "extends": "production",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

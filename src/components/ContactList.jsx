@@ -1,10 +1,9 @@
-import React from "react";
-import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import React, { useCallback } from "react";
+import { SafeAreaView, FlatList, StyleSheet } from "react-native";
 import { Surface, Text } from "react-native-paper";
 
 import ContactListItem from "./ContactListItem";
 import FormInput from "./common/FormInput";
-import Loader from "./common/Loader";
 
 const ContactList = ({
   isLoading,
@@ -13,31 +12,40 @@ const ContactList = ({
   searchContacts,
   handleContactOnPress,
 }) => {
+  const renderItem = useCallback(
+    ({ item }) => (
+      <ContactListItem
+        contact={item}
+        handleOnPress={() => handleContactOnPress(item)}
+      />
+    ),
+    []
+  );
+
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
+
+  const listEmptyComponent = useCallback(
+    () => <Text>No contacts found!</Text>,
+    []
+  );
+
   return (
     <Surface style={styles.containerStyle}>
       <SafeAreaView style={styles.safeContainerStyle}>
-        <ScrollView>
-          <FormInput
-            labelName="Search Contact"
-            value={searchKey}
-            autoCapitalize="none"
-            onChangeText={(value) => searchContacts(value)}
-          />
-          {isLoading ? (
-            <Loader />
-          ) : contacts && contacts.length > 0 ? (
-            contacts.map((contact) => (
-              <ContactListItem
-                key={contact.id}
-                contact={contact}
-                handleOnPress={() => handleContactOnPress(contact)}
-              />
-            ))
-          ) : (
-            <Text>No contacts found!</Text>
-          )}
-        </ScrollView>
-        {/* <FabComponent icon="plus" onPress={goToAddTransaction} /> */}
+        <FormInput
+          labelName="Search Contact"
+          value={searchKey}
+          autoCapitalize="none"
+          onChangeText={(value) => searchContacts(value)}
+        />
+
+        <FlatList
+          data={contacts}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          ListEmptyComponent={listEmptyComponent}
+          refreshing={isLoading}
+        />
       </SafeAreaView>
     </Surface>
   );

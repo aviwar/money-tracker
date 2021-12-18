@@ -75,7 +75,6 @@ const AddTransaction = ({ navigation }) => {
       };
 
       dispatch(addContact(contactData));
-      // dispatch(deleteContact(contact.id));
     }
 
     goToTransactionForm(contact.id);

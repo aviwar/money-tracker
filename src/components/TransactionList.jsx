@@ -1,5 +1,5 @@
-import React from "react";
-import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import React, { useCallback } from "react";
+import { SafeAreaView, FlatList, StyleSheet } from "react-native";
 import { Surface, Text } from "react-native-paper";
 
 import FabComponent from "../components/common/FabComponent";
@@ -10,22 +10,33 @@ const TransactionList = ({
   goToAddTransaction,
   goToTransactionDetail,
 }) => {
+  const renderItem = useCallback(
+    ({ item }) => (
+      <UserItem
+        user={item}
+        handleOnPress={() => goToTransactionDetail(item.id)}
+      />
+    ),
+    []
+  );
+
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
+
+  const listEmptyComponent = useCallback(
+    () => <Text>No transactions found!</Text>,
+    []
+  );
+
   return (
     <Surface style={styles.containerStyle}>
       <SafeAreaView style={styles.safeContainerStyle}>
-        <ScrollView>
-          {transactions && transactions.length > 0 ? (
-            transactions.map((transaction) => (
-              <UserItem
-                key={transaction.id}
-                user={transaction}
-                handleOnPress={() => goToTransactionDetail(transaction.id)}
-              />
-            ))
-          ) : (
-            <Text>No transactions found!</Text>
-          )}
-        </ScrollView>
+        <FlatList
+          data={transactions}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          ListEmptyComponent={listEmptyComponent}
+        />
+
         <FabComponent icon="plus" onPress={goToAddTransaction} />
       </SafeAreaView>
     </Surface>

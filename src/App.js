@@ -4,12 +4,12 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { PersistGate } from "redux-persist/integration/react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { ThemeContext } from "./src/theme/ThemeContext";
-import Loader from "./src/components/common/Loader";
-import { LightTheme, DarkTheme } from "./src/theme/CustomTheme";
+import { ThemeContext } from "./theme/ThemeContext";
+import Loader from "./components/common/Loader";
+import { LightTheme, DarkTheme } from "./theme/CustomTheme";
 
-import { store, persistor } from "./src/store";
-import AppNavigator from "./src/navigation/AppNavigator";
+import { store, persistor } from "./store";
+import AppNavigator from "./navigation/AppNavigator";
 
 export default function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
